@@ -42,6 +42,10 @@ import json
 import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_PATH = os.path.join(BASE_DIR, "frontend", "src", "output.json")
+
 
 with open("dump.json", "r") as f:
     data = json.load(f)
@@ -87,5 +91,5 @@ for topic in data["topic_list"]["topics"]:
 
 print(json.dumps(data_improv, indent=4))
 
-with open("frontend/src/output.json", "w") as f:
+with open(OUTPUT_PATH, "w") as f:
     json.dump(data_improv, f, indent=4)

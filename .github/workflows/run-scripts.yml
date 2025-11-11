@@ -1,0 +1,53 @@
+name: Run Fetch & Transform Scripts Twice Daily
+
+on:
+  schedule:
+    - cron: "0 2,10 * * *"   # Runs at 08:00 & 20:00 IST
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          cd scripts
+          pip install -r requirements.txt
+
+      - name: Run fetchdata.py
+        run: |
+          cd scripts
+          python fetchdata.py
+
+      - name: Run transform.py
+        run: |
+          cd scripts
+          python transform.py
+
+      - name: Log timestamp to scripts/last_run.log
+        run: |
+          echo "Last run: $(date -u +"%Y-%m-%d %H:%M:%S") UTC" > scripts/last_run.log
+
+      - name: Touch frontend trigger file to force Vercel rebuild
+        run: |
+          echo "// Updated $(date -u +"%Y-%m-%d %H:%M:%S")" > frontend/auto_rebuild_trigger.js
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add scripts/last_run.log frontend/auto_rebuild_trigger.js
+          git commit -m "Auto-run data scripts & trigger rebuild" || echo "No changes to commit"
+          git push

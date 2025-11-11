@@ -1,0 +1,161 @@
+:root{
+  --accent-a: #7D4EFC;
+  --accent-b: #F6A14E;
+  --muted: #6b6b7a;
+  --card-shadow: 0 10px 30px rgba(43,36,56,0.08);
+  --glass: rgba(255,255,255,0.6);
+}
+
+/* Component root */
+.events-root{
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #1f1235;
+}
+
+/* Header */
+.events-root .text-center h1{
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px 0;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.events-root .text-center p{
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Toggle */
+.events-toggle{ /* you must add class on wrapper */
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+}
+.events-toggle button{
+  border: none;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #ffffffcc;
+  color: #3b2b47;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: transform .22s ease, box-shadow .22s ease, opacity .18s ease;
+}
+.events-toggle button:hover{ transform: translateY(-2px); }
+.events-toggle button[aria-pressed="true"], .events-toggle button.active{
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(125,78,252,0.18);
+}
+
+/* Generic grid for list view (keeps responsive breakpoints) */
+.events-root .grid{ gap: 24px; }
+
+/* Card base */
+.event-card{
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s ease;
+  box-shadow: var(--card-shadow);
+}
+.event-card:hover{
+  transform: translateY(-8px) scale(1.005);
+  box-shadow: 0 18px 50px rgba(43,36,56,0.12);
+}
+
+/* Large card specifics - keeps image and content column layout */
+.event-card-large{ display:block; }
+.event-card-large .event-card-image{ height: min(480px, 48vh); }
+
+.event-card-image{
+  position: relative;
+  overflow: hidden;
+}
+.event-card-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition: transform .9s cubic-bezier(.2,.9,.3,1);
+  transform-origin:center center;
+}
+.event-card-image:hover img{ transform: scale(1.08); }
+.event-card-image::after{
+  content: '';
+  position: absolute;
+  left:0;right:0;bottom:0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.42) 100%);
+  pointer-events:none;
+}
+
+.event-card-content{
+  padding: 26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.event-card-content h2{ font-size: 1.6rem; margin:0 0 8px 0; color: #201033; }
+.event-card-content p{ color: #5b5564; margin:0 0 12px 0; line-height:1.5; }
+
+.event-meta{ display:flex; gap:14px; align-items:center; color:var(--muted); font-weight:600; }
+
+.event-meta svg{ opacity:0.95; }
+
+/* Buy / CTA */
+.buy-button{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background: linear-gradient(90deg,var(--accent-a), var(--accent-b));
+  color:#fff;
+  padding:10px 18px;
+  border-radius: 999px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow: 0 8px 28px rgba(125,78,252,0.14);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.buy-button:hover{ transform: translateY(-3px); box-shadow: 0 24px 48px rgba(125,78,252,0.18); }
+
+/* Small card tweaks */
+.event-card-small .event-card-image{ height: 170px; }
+.event-card-small .event-card-content{ padding: 18px; }
+.event-card-small h3{ margin:0 0 8px 0; font-size:1.05rem; }
+
+/* Responsive: keep comfortable spacing */
+@media (min-width: 768px){
+  .event-card-large{ display:flex; }
+  .event-card-large .event-card-image{ flex:1 1 50%; }
+  .event-card-large .event-card-content{ flex:1 1 50%; }
+}
+
+@media (max-width: 480px){
+  .events-root h1{ font-size:1.8rem; }
+  .event-card-content h2{ font-size:1.2rem; }
+}
+
+/* Small polish for the carousel controls area (dots & arrows) */
+.events-root .absolute button{ /* targets arrow buttons used in JSX */
+  background: rgba(255,255,255,0.92);
+  border-radius:999px;
+  padding:10px;
+  box-shadow: 0 8px 20px rgba(20,12,40,0.06);
+}
+.events-root .flex.justify-center > button{ /* dot buttons from JSX */
+  border: none;
+  padding:0;
+  margin: 0 6px;
+  border-radius: 999px;
+  cursor:pointer;
+}
+.events-root .flex.justify-center > button.w-8.h-2{ width:36px; height:8px; }
+.events-root .flex.justify-center > button.w-2.h-2{ width:8px; height:8px; }
+
+/* small accessibility touch */
+.events-root a[rel~="noopener"]:focus{ outline: 3px solid rgba(125,78,252,0.18); outline-offset: 3px; }
+
+/* end of file */

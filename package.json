@@ -1,10 +1,14 @@
 {
-  "dependencies": {
-    "lucide-react": "^0.552.0"
+  "name": "iluc-calendar",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy"
   },
-  "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.16"
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-fetch": "^4.0.0"
   }
 }

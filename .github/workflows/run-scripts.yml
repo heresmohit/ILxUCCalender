@@ -1,52 +1,54 @@
-name: Run Fetch & Transform Scripts Twice Daily
+name: Rebuild Eleventy Site Twice Daily
 
 on:
   schedule:
-    - cron: "0 2,10 * * *"   # Runs at 08:00 & 20:00 IST
+    - cron: "0 2,10 * * *"   # 08:00 & 20:00 IST
   workflow_dispatch:
 
+permissions:
+  contents: write   # REQUIRED for git push
+
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          persist-credentials: false
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      # -------------------------------
+      # Set up Node for Eleventy
+      # -------------------------------
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
-        run: |
-          pip install -r scripts/requirements.txt
+        run: npm ci
 
-      - name: Run fetchdata.py
-        run: |
-          cd scripts
-          python fetchdata.py
+      # -------------------------------
+      # Run Eleventy build (fetches data using eleventy-fetch!)
+      # -------------------------------
+      - name: Build the site
+        run: npm run build
 
-      - name: Run transform.py
-        run: |
-          cd scripts
-          python transform.py
+      # -------------------------------
+      # (Optional) Touch a file to force Vercel rebuild
+      # -------------------------------
+      - name: Update build timestamp
+        run: echo "// Build updated $(date -u)" > build_timestamp.js
 
-      - name: Log timestamp to scripts/last_run.log
+      # -------------------------------
+      # Commit & push any changed files (output.json, build triggers)
+      # -------------------------------
+      - name: Commit and Push changes
         run: |
-          echo "Last run: $(date -u +"%Y-%m-%d %H:%M:%S") UTC" > scripts/last_run.log
-
-      - name: Touch frontend trigger file to force Vercel rebuild
-        run: |
-          echo "// Updated $(date -u +"%Y-%m-%d %H:%M:%S")" > frontend/auto_rebuild_trigger.js
-
-      - name: Commit and push changes
-        run: |
-          git config --local user.name "github-actions"
-          git config --local user.email "github-actions@github.com"
-          git add scripts/last_run.log frontend/auto_rebuild_trigger.js
-          git commit -m "Auto-run data scripts & trigger rebuild" || echo "No changes to commit"
-          git push
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Auto: Eleventy rebuild at $(date -u)" || echo "No changes to commit"
+          git push origin HEAD:${{ github.ref_name }}

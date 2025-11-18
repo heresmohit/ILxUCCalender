@@ -52,3 +52,6 @@ htmlcov/
 # IDE / Misc
 .idea/
 *.swp
+
+
+_site

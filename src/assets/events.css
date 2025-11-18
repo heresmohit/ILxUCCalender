@@ -1,0 +1,213 @@
+/* -------------------------------------------------
+   GLOBAL
+------------------------------------------------- */
+
+body {
+  font-family: 'Archivo', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+}
+
+.events-root {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+
+/* -------------------------------------------------
+   HERO SECTION
+------------------------------------------------- */
+
+.page-hero {
+  text-align: center;
+  margin: 1.8rem 0 2.5rem;
+  padding: 0 1rem;
+}
+
+.page-hero h1 {
+  font-size: clamp(1.7rem, 5vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.page-hero .tagline {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: #444;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Social Row */
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: .3rem;
+}
+
+.social-icon img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.social-icon img:hover {
+  opacity: 1;
+}
+
+/* Smaller social icons on mobile */
+@media (max-width: 480px) {
+  .social-icon img {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+
+/* -------------------------------------------------
+   EVENT CARDS
+------------------------------------------------- */
+
+.event-card {
+  border: 1px solid #ddd;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  margin-bottom: 1.4rem;
+  background: #fff;
+  transition: box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Card spacing on mobile */
+@media (max-width: 480px) {
+  .event-card {
+    padding: 0.9rem 1rem;
+  }
+}
+
+
+/* -------------------------------------------------
+   EVENT IMAGE (POSTER)
+------------------------------------------------- */
+
+/* “Show whole poster but smaller” mode */
+.event-image {
+  width: 100%;
+  max-height: auto;
+  padding: 6px 0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 0.9rem;
+  background: #f3f3f3;
+}
+
+.event-image img {
+  max-height: 380px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Smaller posters on very small phones */
+@media (max-width: 480px) {
+  .event-image {
+    max-height: 220px;
+  }
+  .event-image img {
+    max-height: 220px;
+  }
+}
+
+
+/* -------------------------------------------------
+   EVENT TEXT
+------------------------------------------------- */
+
+.event-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem;
+  line-height: 1.25;
+}
+
+.event-date {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.65rem;
+}
+
+.event-excerpt {
+  font-size: 0.92rem;
+  line-height: 1.48;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+
+/* -------------------------------------------------
+   BUTTONS
+------------------------------------------------- */
+
+.event-buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.btn {
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: #111;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #000;
+}
+
+.btn-ghost {
+  border: 1px solid #aaa;
+  color: #444;
+}
+
+.btn-ghost:hover {
+  border-color: #333;
+  color: #222;
+}
+
+
+/* -------------------------------------------------
+   FOOTER
+------------------------------------------------- */
+
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  padding: 2.5rem 0 1.5rem;
+}
+
+.footer a {
+  color: #333;
+}

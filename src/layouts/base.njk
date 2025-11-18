@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ title or "Events" }}</title>
+
+  <link rel="stylesheet" href="/assets/events.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+   <div class="page-hero">
+  <h1 class="hero-title">IMPROVLORE</h1>
+  <p class="tagline">Bangalore's friendliest improv troupe. We take play, seriously.</p>
+
+ <div class="social-row">
+  <a class="social-icon" href="{{ social.whatsapp }}" target="_blank">
+    <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">
+  </a>
+ 
+
+  
+  <a class="social-icon" href="{{ social.instagram }}" target="_blank">
+    <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram">
+  </a>
+  
+
+
+  <a class="social-icon" href="{{ social.youtube }}" target="_blank">
+    <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube">
+  </a>
+  </div>
+
+  <hr>
+    <H2>📅UPCOMING EVENTS📅</H2>
+</div>
+
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+  Auto-updates twice daily from 
+  <a href="https://underline.center" target="_blank">underline.center</a> | <a href="https://github.com/heresmohit/ILxUCCalender" target="_blank">source </a>
+</body>
+</html>
